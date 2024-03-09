@@ -12,10 +12,11 @@ function App() {
   return (
     <Router>
       <div style={{ display: "flex" }}>
-        <div style={{ width: "18%" }}>
+        <div style={{ minWidth: "300px",position:"sticky" ,left:"0",top:"0" }}>
           <SideBar />
         </div>
-        <Routes>
+      <div style={{width:"100%",minHeight:"100vh", overflowY:"scroll"}}>
+      <Routes>
           <Route path="/" element={<Banner />} />
           <Route path="/banner" element={<Banner />} />
           <Route path="/movie" element={<ActiveMovie />} />
@@ -23,6 +24,7 @@ function App() {
           <Route path="/goldenhour" element={<GoldenHour />} />
           <Route path="/quiz" element={<Quiz />} />
         </Routes>
+      </div>
       </div>
     </Router>
   );

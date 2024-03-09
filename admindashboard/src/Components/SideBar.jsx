@@ -18,10 +18,10 @@ export default function SideBar() {
       <div className="menuBar">
         <ul className="sidebarList">
           <li>
-            <NavLink to="/banner" className="sideList">
+            <NavLink to="/" className="sideList">
               <AddPhotoAlternateOutlinedIcon
                 className="iconSize"
-                activeClassName="active"
+                activeclassname="active"
               />
               Banner
             </NavLink>
@@ -30,7 +30,7 @@ export default function SideBar() {
             <NavLink to="/movie" className="sideList">
               <MovieFilterOutlinedIcon
                 className="iconSize"
-                activeClassName="active"
+                activeclassname="active"
               />
               Active Movie
             </NavLink>
@@ -39,7 +39,7 @@ export default function SideBar() {
             <NavLink to="/winner" className="sideList">
               <EmojiEventsOutlinedIcon
                 className="iconSize"
-                activeClassName="active"
+                activeclassname="active"
               />
               Winners
             </NavLink>
@@ -48,14 +48,14 @@ export default function SideBar() {
             <NavLink to="/goldenhour" className="sideList">
               <QueryBuilderOutlinedIcon
                 className="iconSize"
-                activeClassName="active"
+                activeclassname="active"
               />
               Golden Hour
             </NavLink>
           </li>
           <li>
             <NavLink to="/quiz" className="sideList">
-              <QuizOutlinedIcon className="iconSize" activeClassName="active" />
+              <QuizOutlinedIcon className="iconSize" activeclassname="active" />
               Quiz
             </NavLink>
           </li>
