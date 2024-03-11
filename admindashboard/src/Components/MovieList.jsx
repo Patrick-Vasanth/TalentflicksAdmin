@@ -9,18 +9,19 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 
 const columns = [
-  { id: 'bannertitle', label: 'Banner Title', minWidth: 170 },
-  { id: 'bannerdesc', label: 'Banner Description', minWidth: 100 },
+  { id: 'moviename', label: 'Movie Name', minWidth: 170 },
   {
-    id: 'banneralt',
-    label: 'Banner Alt',
+    id: 'movdirector',
+    label: 'Movie Director',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
   },
+  { id: 'movietime', label: 'Movie Duration', minWidth: 100 },
+  
   {
-    id: 'banneractive',
-    label: 'Banner Active',
+    id: 'moviestatus',
+    label: 'Movie Status',
     minWidth: 170,
     align: 'right',
     format: (value) => value.toLocaleString('en-US'),
@@ -37,21 +38,15 @@ const columns = [
 
 
 const rows = [{
-    bannertitle:"hai",
-    bannerdesc:"welcome",
-    banneralt:"bannerq",
-    banneractive:1,
+   
 },
 {
-    bannertitle:"hai",
-    bannerdesc:"welcome",
-    banneralt:"bannerq",
-    banneractive:0,
+   
 },
  
 ];
 
-export default function BannerList() {
+export default function MovieList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -65,13 +60,13 @@ export default function BannerList() {
   };
 
   return (
-    <Paper sx={{ width: '100%',border:"2px solid #2b2b2b",borderRadius:"8px" }}>
+    <Paper sx={{ width: '100%' ,border:"2px solid #2b2b2b",borderRadius:"8px" }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell align="center" colSpan={6}>
-               <h2>Banner List</h2>
+               <h2>Movie List</h2>
               </TableCell>
             </TableRow>
             <TableRow>

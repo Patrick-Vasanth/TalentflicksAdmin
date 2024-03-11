@@ -4,7 +4,7 @@ import LogoDev from "./Assest/logo.svg";
 import { NavLink } from "react-router-dom";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import MovieFilterOutlinedIcon from "@mui/icons-material/MovieFilterOutlined";
-import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
+// import EmojiEventsOutlinedIcon from "@mui/icons-material/EmojiEventsOutlined";
 import QueryBuilderOutlinedIcon from "@mui/icons-material/QueryBuilderOutlined";
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
@@ -35,7 +35,7 @@ export default function SideBar() {
               Active Movie
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/winner" className="sideList">
               <EmojiEventsOutlinedIcon
                 className="iconSize"
@@ -43,7 +43,7 @@ export default function SideBar() {
               />
               Winners
             </NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to="/goldenhour" className="sideList">
               <QueryBuilderOutlinedIcon

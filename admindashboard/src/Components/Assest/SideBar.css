@@ -32,7 +32,7 @@
 .sidebarList {
   padding: 0;
   margin: 20px 0 0 0;
-  height: 55%;
+  height: 50%;
   display: flex;
   width: 100%;
   flex-direction: column;

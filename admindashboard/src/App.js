@@ -4,7 +4,7 @@ import Banner from "./Components/Banner";
 import SideBar from "./Components/SideBar";
 import ActiveMovie from "./Components/ActiveMovie";
 import GoldenHour from "./Components/GoldenHour";
-import Winner from "./Components/Winner";
+// import Winner from "./Components/Winner";
 import Quiz from "./Components/Quiz";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -20,7 +20,7 @@ function App() {
           <Route path="/" element={<Banner />} />
           <Route path="/banner" element={<Banner />} />
           <Route path="/movie" element={<ActiveMovie />} />
-          <Route path="/winner" element={<Winner />} />
+          {/* <Route path="/winner" element={<Winner />} /> */}
           <Route path="/goldenhour" element={<GoldenHour />} />
           <Route path="/quiz" element={<Quiz />} />
         </Routes>

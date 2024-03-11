@@ -7,7 +7,7 @@ export default function BannerForm() {
   const [bannerdesc, setbannerdesc] = useState(" ");
   const [banneralt, setbanneralt] = useState(" ");
   const [banneractive, setbanneractive] = useState(1);
-  const [bannerimage, setbannerimage] = useState(null);
+  const [bannerimage, setbannerimage] = useState("");
 
   let uploadBanner=(e)=>{
     e.preventDefault();
@@ -20,6 +20,19 @@ export default function BannerForm() {
     }
 
     console.log(bannerObj);
+  }
+
+  let bannerChange=(e)=>{
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setbannerimage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   }
 
   return (
@@ -93,8 +106,9 @@ export default function BannerForm() {
             className="form-control"
             id="bannerImage"
             name="bannerimg"
-            value={bannerimage}
-            onChange={(e)=>setbannerimage(e.target.value)}
+            // value={bannerimage}
+            accept="image/*"
+            onChange={bannerChange}
             required
           ></input>
         </div>
