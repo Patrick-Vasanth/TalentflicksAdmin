@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import axios from "axios";
 
 export default function BannerForm() {
   const [bannertitle, setbannertitle] = useState(" ");
@@ -9,20 +9,35 @@ export default function BannerForm() {
   const [banneractive, setbanneractive] = useState(1);
   const [bannerimage, setbannerimage] = useState("");
 
-  let uploadBanner=(e)=>{
+  let uploadBanner = async (e) => {
     e.preventDefault();
-    let bannerObj ={
-      bannertitle:bannertitle,
-      bannerdesc:bannerdesc,
-      banneralt:banneralt,
-      banneractive:banneractive,
-      bannerimage:bannerimage,
+    let bannerObj = {
+      BANNER_TITLE: bannertitle,
+      BANNER_DESC: bannerdesc,
+      BANNER_IMAGE_ALT: banneralt,
+      BANNER_IS_ACTIVE: banneractive,
+      BANNER_IMAGE_NAME: bannerimage,
+    };
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/home/banners",
+        bannerObj,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
 
     console.log(bannerObj);
-  }
+  };
 
-  let bannerChange=(e)=>{
+  let bannerChange = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
 
@@ -33,43 +48,37 @@ export default function BannerForm() {
     if (file) {
       reader.readAsDataURL(file);
     }
-  }
+  };
 
   return (
     <div className="formBanner">
       <form className="row g-3" onSubmit={uploadBanner}>
         <div className="col-md-6">
-          <label  className="form-label">
-            Banner Title
-          </label>
+          <label className="form-label">Banner Title</label>
           <input
             type="text"
             className="form-control"
             id="bannerTitle"
             name="bannertitle"
             value={bannertitle}
-            onChange={(e)=>setbannertitle(e.target.value)}
+            onChange={(e) => setbannertitle(e.target.value)}
             required
           ></input>
         </div>
         <div className="col-md-6">
-          <label  className="form-label">
-            Banner Description
-          </label>
+          <label className="form-label">Banner Description</label>
           <input
             type="text"
             className="form-control"
             id="bannerDesc"
             name="bannerdesc"
             value={bannerdesc}
-            onChange={(e)=>setbannerdesc(e.target.value)}
+            onChange={(e) => setbannerdesc(e.target.value)}
             required
           ></input>
         </div>
         <div className="col-md-6">
-          <label  className="form-label">
-            Banner Alternative
-          </label>
+          <label className="form-label">Banner Alternative</label>
           <input
             type="text"
             className="form-control"
@@ -77,30 +86,25 @@ export default function BannerForm() {
             name="banneralt"
             required
             value={banneralt}
-            onChange={(e)=>setbanneralt(e.target.value)}
+            onChange={(e) => setbanneralt(e.target.value)}
           ></input>
         </div>
         <div className="col-md-6">
-          <label  className="form-label">
-            Banner Active
-          </label>
+          <label className="form-label">Banner Active</label>
           <select
             className="form-select"
             id="bannerActive"
             name="banneractive"
             value={banneractive}
-            onChange={(e)=>setbanneractive(e.target.value)}
+            onChange={(e) => setbanneractive(e.target.value)}
             required
           >
             <option value={1}>Active</option>
             <option value={0}>Not Active</option>
-            
           </select>
         </div>
         <div className="col-md-6 bannerUpload">
-          <label  className="form-label">
-            Choose Banner
-          </label>
+          <label className="form-label">Choose Banner</label>
           <input
             type="file"
             className="form-control"
