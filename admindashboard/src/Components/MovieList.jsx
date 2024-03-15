@@ -37,18 +37,14 @@ const columns = [
 
 
 
-const rows = [{
-   
-},
-{
-   
-},
- 
+const rows = [
 ];
 
 export default function MovieList() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -58,6 +54,10 @@ export default function MovieList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+
+  
+
 
   return (
     <Paper sx={{ width: '100%' ,border:"2px solid #2b2b2b",borderRadius:"8px" }}>

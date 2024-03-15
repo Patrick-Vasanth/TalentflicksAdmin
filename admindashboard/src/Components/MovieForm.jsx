@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
 
 export default function MovieForm() {
   const [moviename, setmoviename] = useState(" ");
@@ -11,21 +12,35 @@ export default function MovieForm() {
   const [movielanguage, setmovielanguage] = useState("");
   const [movieurl, setmovieurl] = useState("");
   const [moviestatus, setmoviestatus] = useState(1);
+  const [moviebanner, setmoviebanner] = useState("");
+  const [movieposter, setmovieposter] = useState("");
 
-  let uploadMovie = (e) => {
+  let uploadMovie = async(e) => {
     e.preventDefault();
     let movieObj = {
-      moviename: moviename,
-      moviedesc: moviedesc,
-      movietime: movietime,
-      movdirector: movdirector,
-      moviecast: moviecast,
-      moviegenre: moviegenre,
-      movielanguage: movielanguage,
-      movieurl: movieurl,
-      moviestatus: moviestatus,
+      MOVIE_NAME: moviename,
+      MOVIE_DESCRIPTION: moviedesc,
+      MOVIE_RUNTIME: movietime,
+      MOVIE_DIRECTOR_NAME: movdirector,
+      MOVIE_STAR_CAST: moviecast,
+      MOVIE_GENRE: moviegenre,
+      MOVIE_LANGUAGE: movielanguage,
+      MOVIE_URL_LINK: movieurl,
+      MOVIE_STATUS: moviestatus,
+      MOVIE_BANNER:moviebanner,
+      MOVIE_POSTER:movieposter,
     };
-    console.log(movieObj);
+    
+
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/home/movielist",
+        movieObj
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -93,7 +108,7 @@ export default function MovieForm() {
             required
           ></input>
         </div>
-        <div className="col-md-4 bannerUpload">
+        <div className="col-md-4">
           <label className="form-label">Movie Cast</label>
           <input
             type="text"
@@ -108,7 +123,7 @@ export default function MovieForm() {
         <div className="col-md-4 ">
           <label className="form-label">Movie Genre</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             id="movieGenre"
             name="moviegenre"
@@ -120,7 +135,7 @@ export default function MovieForm() {
         <div className="col-md-4 ">
           <label className="form-label">Movie Language</label>
           <input
-            type="text"
+            type="number"
             className="form-control"
             id="movieLanguage"
             name="movielanguage"
@@ -139,6 +154,34 @@ export default function MovieForm() {
             value={movieurl}
             onChange={(e) => setmovieurl(e.target.value)}
             required
+          ></input>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label">Choose Banner</label>
+          <input
+            type="file"
+            className="form-control"
+            id="movieBanner"
+            name="moviebanner"
+            value={moviebanner}
+            accept="image/*"
+            // onChange={bannerChange}
+            onChange={(e)=>setmoviebanner(e.target.value)}
+            // required
+          ></input>
+        </div>
+        <div className="col-md-6">
+          <label className="form-label">Choose Poster</label>
+          <input
+            type="file"
+            className="form-control"
+            id="moviePoster"
+            name="movieposter"
+            value={movieposter}
+            accept="image/*"
+            // onChange={bannerChange}
+            onChange={(e)=>setmovieposter(e.target.value)}
+            // required
           ></input>
         </div>
         <div className="col-12 movBtn">

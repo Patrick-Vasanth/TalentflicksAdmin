@@ -7,6 +7,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import { useEffect } from 'react';
+import axios from "axios";
+
 
 const columns = [
   { id: 'bannertitle', label: 'Banner Title', minWidth: 170 },
@@ -36,18 +39,19 @@ const columns = [
 
 
 
-const rows = [{
-    bannertitle:"hai",
-    bannerdesc:"welcome",
-    banneralt:"bannerq",
-    banneractive:1,
-},
-{
-    bannertitle:"hai",
-    bannerdesc:"welcome",
-    banneralt:"bannerq",
-    banneractive:0,
-},
+const rows = [
+//   {
+//     bannertitle:"hai",
+//     bannerdesc:"welcome",
+//     banneralt:"bannerq",
+//     banneractive:1,
+// },
+// {
+//     bannertitle:"hai",
+//     bannerdesc:"welcome",
+//     banneralt:"bannerq",
+//     banneractive:0,
+// },
  
 ];
 
@@ -63,6 +67,25 @@ export default function BannerList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const [bannerData, setbannerData] = useState([])
+
+  const callBannerData =async()=>{
+   
+    try{
+      const response = await axios.get("http://127.0.0.1:8000/api/home/banners");
+      setbannerData(response.data)
+      console.log("success");
+    }
+    catch(error){
+      console.log(error);
+    }
+
+  }
+
+  useEffect(()=>{
+    callBannerData();
+  },[])
 
   return (
     <Paper sx={{ width: '100%',border:"2px solid #2b2b2b",borderRadius:"8px" }}>
@@ -87,21 +110,14 @@ export default function BannerList() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
+            {bannerData
+              // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((bannerData) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
+                  <TableRow hover role="checkbox"  key={bannerData.id}>
+                   <TableCell align='center'>
+                    {bannerData.BANNER_TITLE}
+                   </TableCell>
                   </TableRow>
                 );
               })}
@@ -111,7 +127,7 @@ export default function BannerList() {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={bannerData.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}

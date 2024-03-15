@@ -22,33 +22,27 @@ export default function BannerForm() {
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/home/banners",
-        bannerObj,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        bannerObj
       );
       console.log(response);
     } catch (error) {
       console.log(error);
     }
 
-    console.log(bannerObj);
   };
 
-  let bannerChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
+  // let bannerChange = (e) => {
+  //   const file = e.target.files[0];
+  //   const reader = new FileReader();
 
-    reader.onloadend = () => {
-      setbannerimage(reader.result);
-    };
+  //   reader.onloadend = () => {
+  //     setbannerimage(reader.result);
+  //   };
 
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  };
+  //   if (file) {
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   return (
     <div className="formBanner">
@@ -110,10 +104,11 @@ export default function BannerForm() {
             className="form-control"
             id="bannerImage"
             name="bannerimg"
-            // value={bannerimage}
+            value={bannerimage}
             accept="image/*"
-            onChange={bannerChange}
-            required
+            // onChange={bannerChange}
+            onChange={(e)=>setbannerimage(e.target.value)}
+            // required
           ></input>
         </div>
         <div className="col-12 banBtn">
