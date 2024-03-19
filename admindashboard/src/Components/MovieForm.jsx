@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 export default function MovieForm() {
-  const [moviename, setmoviename] = useState(" ");
-  const [moviedesc, setmoviedesc] = useState(" ");
-  const [movietime, setmovietime] = useState(" ");
+  const [moviename, setmoviename] = useState("");
+  const [moviedesc, setmoviedesc] = useState("");
+  const [movietime, setmovietime] = useState("");
   const [movdirector, setmovdirector] = useState("");
   const [moviecast, setmoviecast] = useState("");
   const [moviegenre, setmoviegenre] = useState("");
@@ -14,8 +14,23 @@ export default function MovieForm() {
   const [moviestatus, setmoviestatus] = useState(1);
   const [moviebanner, setmoviebanner] = useState("");
   const [movieposter, setmovieposter] = useState("");
+  const message = document.getElementById("message");
 
-  let uploadMovie = async(e) => {
+  const clearFiled = () => {
+    setmoviestatus(1);
+    setmovdirector("");
+    setmoviebanner("");
+    setmoviecast("");
+    setmoviedesc("");
+    setmoviegenre("");
+    setmovielanguage("");
+    setmovieposter("");
+    setmovietime("");
+    setmoviename("");
+    setmovieurl("");
+  };
+
+  let uploadMovie = async (e) => {
     e.preventDefault();
     let movieObj = {
       MOVIE_NAME: moviename,
@@ -27,19 +42,27 @@ export default function MovieForm() {
       MOVIE_LANGUAGE: movielanguage,
       MOVIE_URL_LINK: movieurl,
       MOVIE_STATUS: moviestatus,
-      MOVIE_BANNER:moviebanner,
-      MOVIE_POSTER:movieposter,
+      MOVIE_BANNER: moviebanner,
+      MOVIE_POSTER: movieposter,
     };
-    
 
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/api/home/movielist",
         movieObj
       );
-      console.log(response);
+      message.innerText = "Movie Uploaded";
+      message.style.color = "green";
+      message.style.textAlign = "center";
+      message.style.fontSize = "20px";
+      clearFiled();
+      console.log("success");
     } catch (error) {
       console.log(error);
+      message.innerText = "Movie Not Uploaded";
+      message.style.color = "green";
+      message.style.textAlign = "center";
+      message.style.fontSize = "20px";
     }
   };
 
@@ -77,9 +100,9 @@ export default function MovieForm() {
             className="form-control"
             id="movieTime"
             name="movietime"
-            required
             value={movietime}
             onChange={(e) => setmovietime(e.target.value)}
+            required
           ></input>
         </div>
         <div className="col-md-4">
@@ -166,7 +189,7 @@ export default function MovieForm() {
             value={moviebanner}
             accept="image/*"
             // onChange={bannerChange}
-            onChange={(e)=>setmoviebanner(e.target.value)}
+            onChange={(e) => setmoviebanner(e.target.value)}
             // required
           ></input>
         </div>
@@ -180,10 +203,11 @@ export default function MovieForm() {
             value={movieposter}
             accept="image/*"
             // onChange={bannerChange}
-            onChange={(e)=>setmovieposter(e.target.value)}
+            onChange={(e) => setmovieposter(e.target.value)}
             // required
           ></input>
         </div>
+        <div id="message"></div>
         <div className="col-12 movBtn">
           <button className="btn movieBtn" type="submit">
             Upload Movie

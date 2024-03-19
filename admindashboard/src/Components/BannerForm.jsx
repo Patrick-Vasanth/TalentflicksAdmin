@@ -2,15 +2,27 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function BannerForm() {
-  const [bannertitle, setbannertitle] = useState(" ");
-  const [bannerdesc, setbannerdesc] = useState(" ");
-  const [banneralt, setbanneralt] = useState(" ");
+  const [bannertitle, setbannertitle] = useState("");
+  const [bannerdesc, setbannerdesc] = useState("");
+  const [banneralt, setbanneralt] = useState("");
   const [banneractive, setbanneractive] = useState(1);
   const [bannerimage, setbannerimage] = useState("");
 
-  let uploadBanner = async (e) => {
+  const clearFiled = () => {
+    setbanneractive(1);
+    setbanneralt("");
+    setbannerdesc("");
+    setbannerimage("");
+    setbannertitle("");
+  };
+
+  let uploadBanner = (e) => {
     e.preventDefault();
+
     let bannerObj = {
       BANNER_TITLE: bannertitle,
       BANNER_DESC: bannerdesc,
@@ -20,15 +32,32 @@ export default function BannerForm() {
     };
 
     try {
-      const response = await axios.post(
+      const response = axios.post(
         "http://127.0.0.1:8000/api/home/banners",
         bannerObj
       );
-      console.log(response);
+      toast.success("🦄 Banner Uploaded", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      clearFiled();
     } catch (error) {
       console.log(error);
+      toast.error("🦄 Banner Not Uploaded", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "danger",
+      });
     }
-
   };
 
   // let bannerChange = (e) => {
@@ -78,9 +107,9 @@ export default function BannerForm() {
             className="form-control"
             id="bannerAlt"
             name="banneralt"
-            required
             value={banneralt}
             onChange={(e) => setbanneralt(e.target.value)}
+            required
           ></input>
         </div>
         <div className="col-md-6">
@@ -97,7 +126,7 @@ export default function BannerForm() {
             <option value={0}>Not Active</option>
           </select>
         </div>
-        <div className="col-md-6 bannerUpload">
+        <div className="col-md-12 bannerUpload">
           <label className="form-label">Choose Banner</label>
           <input
             type="file"
@@ -107,7 +136,7 @@ export default function BannerForm() {
             value={bannerimage}
             accept="image/*"
             // onChange={bannerChange}
-            onChange={(e)=>setbannerimage(e.target.value)}
+            onChange={(e) => setbannerimage(e.target.value)}
             // required
           ></input>
         </div>
@@ -117,6 +146,26 @@ export default function BannerForm() {
           </button>
         </div>
       </form>
+      <div>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          theme="light"
+        />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          theme="light"
+        />
+      </div>
     </div>
   );
 }
